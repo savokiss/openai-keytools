@@ -1,6 +1,6 @@
 export default defineAppConfig({
-  title: 'Nuxt UI Starter',
-  description: 'Nuxt UI Starter',
+  title: 'OpenAI KeyTools',
+  description: 'OpenAI KeyTools',
   ui: {
     primary: 'emerald',
     container: {

@@ -25,7 +25,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="min-h-screen">
+  <div class="min-h-screen p-2">
     <NuxtPage />
   </div>
   <UNotifications />
