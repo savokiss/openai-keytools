@@ -1,0 +1,27 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "nuxi dev",
+    "generate": "nuxt generate",
+    "build": "nuxi build",
+    "preview": "nuxt preview",
+    "lint": "eslint .",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@iconify-json/simple-icons": "^1.1.56",
+    "@nuxthq/ui": "^2.5.0"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "^0.6.7",
+    "@nuxt/eslint-config": "^0.1.1",
+    "@types/node": "^18.16.19",
+    "eslint": "^8.42.0",
+    "less": "^4.1.3",
+    "nuxt": "^3.6.2",
+    "typescript": "5.1.6"
+  },
+  "resolutions": {
+    "nitropack": "npm:nitropack-edge@latest"
+  }
+}
