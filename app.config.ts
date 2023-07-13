@@ -1,6 +1,7 @@
 export default defineAppConfig({
   title: 'OpenAI KeyTools',
   description: 'OpenAI KeyTools',
+  githubLink: process.env.NUXT_GITHUB_LINK,
   ui: {
     primary: 'emerald',
     container: {

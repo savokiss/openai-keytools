@@ -47,6 +47,7 @@ async function doQuery () {
 
 <template>
   <div class="container mx-auto pt-10">
+    <GithubCorner />  
     <section class="min-w-min mx-auto">
       <h1 class="text-center text-3xl font-bold font-sans">
         Tools for OpenAI API Keys
