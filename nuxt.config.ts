@@ -1,7 +1,3 @@
-import { createResolver } from 'nuxt/kit'
-
-const { resolve } = createResolver(import.meta.url)
-
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
@@ -14,15 +10,5 @@ export default defineNuxtConfig({
   },
   ui: {
     icons: ['heroicons', 'simple-icons']
-  },
-  runtimeConfig: {
-    github: {
-      clientId: '',
-      clientSecret: ''
-    },
-    session: {
-      name: 'nuxt-session',
-      password: ''
-    }
   }
 })

@@ -5,9 +5,9 @@ const toast = useToast()
 const key = ref('')
 const columns = [
   { key: 'key', label: 'Key' },
-  { key: 'totalLimit', label: 'Total Limit' },
-  { key: 'totalUsage', label: 'Total Usage' },
-  { key: 'remaining', label: 'Remaining' },
+  { key: 'totalLimit', label: 'Limit' },
+  { key: 'totalUsage', label: 'Usage' },
+  { key: 'remaining', label: 'Remain' },
   { key: 'expiryDate', label: 'Expire At' },
   { key: 'hasGPT4', label: 'GPT-4' },
   { key: 'hasPayment', label: 'Payment' },
@@ -59,7 +59,7 @@ async function doQuery () {
       </UButton> 
     </section>
 
-    <section class="min-w-min mx-auto mt-8">
+    <section class="min-w-min mx-auto mt-8 overflow-auto">
       <UTable 
         :columns="columns" 
         :rows="keyList" 

@@ -1,12 +1,5 @@
 <script setup>
-const { loggedIn } = useUserSession()
 const appConfig = useAppConfig()
-
-watch(loggedIn, () => {
-  if (!loggedIn.value) {
-    navigateTo('/')
-  }
-})
 
 useHead({
   htmlAttrs: { lang: 'en' },
