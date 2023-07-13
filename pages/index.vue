@@ -1,16 +1,18 @@
 <script setup lang="ts">
-
+import type { KeyData } from '~/types'
 
 const toast = useToast()
 const key = ref('')
 const columns = [
   { key: 'key', label: 'Key' },
-  { key: 'system_hard_limit_usd', label: 'TotalLimit' },
-  { key: 'card', label: 'Used' },
-  { key: 'card', label: 'Avaliable' },
-  { key: 'card', label: 'Has Payment' },
+  { key: 'totalLimit', label: 'Total Limit' },
+  { key: 'totalUsage', label: 'Total Usage' },
+  { key: 'remaining', label: 'Remaining' },
+  { key: 'expiryDate', label: 'Expire At' },
+  { key: 'hasGPT4', label: 'GPT-4' },
+  { key: 'hasPayment', label: 'Payment' },
 ]
-const keyList = ref([])
+const keyList = ref<KeyData[]>([])
 
 function showToast(msg: string, { color = 'primary' } = {}) {
   toast.add({
@@ -19,24 +21,24 @@ function showToast(msg: string, { color = 'primary' } = {}) {
   })
 }
 
-async function getSubscription (key: string) {
-  const { data } = await useFetch('/api/openai/subscription', { 
+async function getUsages (key: string) {
+  const { data } = await useFetch<KeyData>('/api/openai/usage', { 
     query: {
       key
     },
-    pick: ['subscription']
   })
-  console.log('res', data.value)
-  return data.value?.subscription
+  return data.value
 }
 
 async function doQuery () {
   if (!key.value) {
     showToast('Please input the key.', { color: 'red' })
   }
-  const sub = await getSubscription(key.value)
+  const res = await getUsages(key.value)
+  res && keyList.value.push({
+    ...res
+  })
 }
-
 </script>
 
 <template>
@@ -46,19 +48,38 @@ async function doQuery () {
         Tools for OpenAI API Keys
       </h1>
       <p class="text-xl text-center text-gray-500">
-        Enter your key below to query.
+        Enter your key below
       </p>
     </section>
 
     <section class="min-w-min mx-auto mt-8">
-      <UInput v-model="key" size="lg" placeholder="Your key here." />
-      <UButton class="mt-4" block size="lg" @click="doQuery">
+      <UInput v-model="key" size="lg" placeholder="Your key here. Starts with `sk-`" />
+      <UButton class="mt-4" block size="lg" color="indigo" @click="doQuery">
         Query
       </UButton> 
     </section>
 
     <section class="min-w-min mx-auto mt-8">
-      <UTable :columns="columns" :rows="keyList" />
+      <UTable 
+        :columns="columns" 
+        :rows="keyList" 
+      >
+        <template #key-data="{ row }">
+          <span>{{ hideApiKey(row.key) }}</span>
+        </template>
+        <template #totalUsage-data="{ row }">
+          <span>{{ row.totalUsage.toFixed(2) }}</span>
+        </template>
+        <template #remaining-data="{ row }">
+          <span>{{ row.remaining.toFixed(2) }}</span>
+        </template>
+        <template #hasGPT4-data="{ row }">
+          <span>{{ row.hasGPT4 ? '🟢' : '❌' }}</span>
+        </template>
+        <template #hasPayment-data="{ row }">
+          <span>{{ row.hasPayment ? '🟢' : '❌' }}</span>
+        </template>
+      </UTable>
     </section>
   </div>
 </template>

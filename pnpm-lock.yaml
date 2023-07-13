@@ -14,6 +14,9 @@ dependencies:
   '@nuxthq/ui':
     specifier: ^2.5.0
     version: 2.5.0(vue@3.3.4)(webpack@5.87.0)
+  dayjs:
+    specifier: ^1.11.9
+    version: 1.11.9
 
 devDependencies:
   '@nuxt/devtools':
@@ -2858,8 +2861,10 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /citty@0.1.1:
-    resolution: {integrity: sha512-fL/EEp9TyXlNkgYFQYNqtMJhnAk2tAq8lCST7O5LPn1NrzWPsOKE5wafR7J+8W87oxqolpxNli+w7khq5WP7tg==}
+  /citty@0.1.2:
+    resolution: {integrity: sha512-Me9nf0/BEmMOnuQzMOVXgpzkMUNbd0Am8lTl/13p0aRGAoLGk5T5sdet/42CrIGmWdG67BgHUhcKK1my1ujUEg==}
+    dependencies:
+      consola: 3.2.3
     dev: true
 
   /clean-stack@2.2.0:
@@ -3206,6 +3211,10 @@ packages:
     resolution: {integrity: sha512-0R9ikRb668HB7QDxT1vkpuUBtqc53YyAwMwGeUFKRojY/NWKvdZ+9UYtRfGmhqNbRkTSVpMbmyhXipFFv2cb/A==}
     engines: {node: '>= 12'}
     dev: true
+
+  /dayjs@1.11.9:
+    resolution: {integrity: sha512-QvzAURSbQ0pKdIye2txOzNaHmxtUBXerpY0FJsFXUMKbIZeFm5ht1LS/jFsrncjnmtv8HsG0W2g6c0zUjZWmpA==}
+    dev: false
 
   /debug@2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
@@ -5403,8 +5412,8 @@ packages:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: false
 
-  /nitropack-edge@2.6.0-28142855.f0d0d91:
-    resolution: {integrity: sha512-kQ0yG/GtiLaBE3khl8wofhW2xGHdbKHgYcSWqRxFeXveKAE1g5ttT+kmsa0AMjQdrpnYPEzviB3HkBWEJPEqHQ==}
+  /nitropack-edge@2.6.0-28153338.bb79391:
+    resolution: {integrity: sha512-Qs67fZ/dKt3+Q933zDLx93bvXcIlEL6FPCopUjo5kGdJm22XA0VqlUfwDCykovusAOiFnTsZLBRWMeGsfrlolw==}
     engines: {node: ^14.16.0 || ^16.11.0 || >=17.0.0}
     hasBin: true
     dependencies:
@@ -5425,7 +5434,7 @@ packages:
       c12: 1.4.2
       chalk: 5.3.0
       chokidar: 3.5.3
-      citty: 0.1.1
+      citty: 0.1.2
       consola: 3.2.3
       cookie-es: 1.0.0
       defu: 6.1.2
@@ -5453,7 +5462,7 @@ packages:
       node-fetch-native: 1.2.0
       ofetch: 1.1.1
       ohash: 1.1.2
-      openapi-typescript: 6.2.8
+      openapi-typescript: 6.3.4
       pathe: 1.1.1
       perfect-debounce: 1.0.0
       pkg-types: 1.0.3
@@ -5469,7 +5478,7 @@ packages:
       std-env: 3.3.3
       ufo: 1.1.2
       uncrypto: 0.1.3
-      unenv: 1.5.1
+      unenv: 1.5.2
       unimport: 3.0.14(rollup@3.26.2)
       unstorage: 1.8.0
     transitivePeerDependencies:
@@ -5731,7 +5740,7 @@ packages:
       local-pkg: 0.4.3
       magic-string: 0.30.1
       mlly: 1.4.0
-      nitropack: /nitropack-edge@2.6.0-28142855.f0d0d91
+      nitropack: /nitropack-edge@2.6.0-28153338.bb79391
       nuxi: 3.6.2
       nypm: 0.2.2
       ofetch: 1.1.1
@@ -5878,14 +5887,14 @@ packages:
       is-wsl: 2.2.0
     dev: true
 
-  /openapi-typescript@6.2.8:
-    resolution: {integrity: sha512-yA+y5MHiu6cjmtsGfNLavzVuvGCKzjL3H+exgHDPK6bnp6ZVFibtAiafenNSRDWL0x+7Sw/VPv5SbaqiPLW46w==}
+  /openapi-typescript@6.3.4:
+    resolution: {integrity: sha512-icWb7WBBFr8+RxX7NZC5ez0WkTSQAScLnI33vHRLvWxkpOGKLlp94C0wcicZWzh85EoIoFjO+tujcQxo7zeZdA==}
     hasBin: true
     dependencies:
       ansi-colors: 4.1.3
       fast-glob: 3.3.0
       js-yaml: 4.1.0
-      supports-color: 9.3.1
+      supports-color: 9.4.0
       undici: 5.22.1
       yargs-parser: 21.1.1
     dev: true
@@ -7209,8 +7218,8 @@ packages:
       has-flag: 4.0.0
     dev: false
 
-  /supports-color@9.3.1:
-    resolution: {integrity: sha512-knBY82pjmnIzK3NifMo3RxEIRD9E0kIzV4BKcyTZ9+9kWgLMxd4PrsTSMoFQUabgRBbF8KOLRDCyKgNV+iK44Q==}
+  /supports-color@9.4.0:
+    resolution: {integrity: sha512-VL+lNrEoIXww1coLPOmiEmK/0sGigko5COxI09KzHc2VJXJsQ37UaQ+8quuxjDeA7+KnLGTWRyOXSLLR2Wb4jw==}
     engines: {node: '>=12'}
     dev: true
 
@@ -7556,6 +7565,16 @@ packages:
 
   /unenv@1.5.1:
     resolution: {integrity: sha512-tQHlmQUPyIoyGc2bF8phugmQd6wVatkVe5FqxxhM1vHfmPKWTiogSVTHA0mO8gNztDKZLpBEJx3M3CJrTZyExg==}
+    dependencies:
+      consola: 3.2.3
+      defu: 6.1.2
+      mime: 3.0.0
+      node-fetch-native: 1.2.0
+      pathe: 1.1.1
+    dev: true
+
+  /unenv@1.5.2:
+    resolution: {integrity: sha512-fpQW0nx3hGx0q0wq/35+ng9Dm4m1/2V00UmU5Jxdr1woyrMbT4RydQn5eh/hZyM81HKAPzaf50TKX0XfYpBaqg==}
     dependencies:
       consola: 3.2.3
       defu: 6.1.2
