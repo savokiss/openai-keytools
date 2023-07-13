@@ -7,7 +7,7 @@ const columns = [
   { key: 'key', label: 'Key' },
   { key: 'totalLimit', label: 'Limit' },
   { key: 'totalUsage', label: 'Usage' },
-  { key: 'remaining', label: 'Remain' },
+  { key: 'remaining', label: 'Remaining' },
   { key: 'expiryDate', label: 'Expire At' },
   { key: 'hasGPT4', label: 'GPT-4' },
   { key: 'hasPayment', label: 'Payment' },
@@ -32,9 +32,13 @@ async function getUsages (key: string) {
 
 async function doQuery () {
   if (!key.value) {
-    showToast('Please input the key.', { color: 'red' })
+    return showToast('Please input the key.', { color: 'red' })
   }
-  const res = await getUsages(key.value)
+  const validatedKey = validateKey(key.value)
+  if (!validatedKey) {
+    return showToast('Please check the key format.', { color: 'red' })
+  }
+  const res = await getUsages(validatedKey)
   res && keyList.value.push({
     ...res
   })
@@ -67,11 +71,14 @@ async function doQuery () {
         <template #key-data="{ row }">
           <span>{{ hideApiKey(row.key) }}</span>
         </template>
+        <template #totalLimit-data="{ row }">
+          <span class="font-bold">${{ row.totalLimit }}</span>
+        </template>
         <template #totalUsage-data="{ row }">
-          <span>{{ row.totalUsage.toFixed(2) }}</span>
+          <span class="font-bold text-orange-600">${{ row.totalUsage.toFixed(2) }}</span>
         </template>
         <template #remaining-data="{ row }">
-          <span>{{ row.remaining.toFixed(2) }}</span>
+          <span class="font-bold text-green-600">${{ row.remaining.toFixed(2) }}</span>
         </template>
         <template #hasGPT4-data="{ row }">
           <span>{{ row.hasGPT4 ? '🟢' : '❌' }}</span>
