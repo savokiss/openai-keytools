@@ -6,7 +6,8 @@ export default defineNuxtConfig({
         global: true
       },
     ],
-    '@vueuse/nuxt'
+    '@vueuse/nuxt',
+    'nuxt-gtag'
   ],
   colorMode: {
     preference: 'light'
