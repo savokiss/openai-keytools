@@ -14,5 +14,8 @@
 <script setup lang="ts">
 import type { LocationInfo } from '@/types'
 
-const { data } = useFetch<LocationInfo>('https://forge.speedtest.cn/api/location/info')
+const { data } = useFetch<LocationInfo>('https://forge.speedtest.cn/api/location/info', {
+  lazy: true,
+  server: false
+})
 </script>
