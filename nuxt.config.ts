@@ -1,9 +1,12 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
-    ['@nuxthq/ui', {
-      global: true
-    }]
+    [
+      '@nuxthq/ui', {
+        global: true
+      },
+    ],
+    '@vueuse/nuxt'
   ],
   colorMode: {
     preference: 'light'
