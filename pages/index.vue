@@ -147,5 +147,6 @@ function onDeleteKey(row: KeyData) {
         </template>
       </ClientOnly>
     </section>
+    <AppFooter />
   </div>
 </template>

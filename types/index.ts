@@ -8,3 +8,11 @@ export type KeyData = {
   hasGPT4: boolean
   hasPayment: boolean
 }
+
+export type LocationInfo = {
+  ip: string
+  province: string
+  city: string
+  distinct: string
+  isp: string
+}
