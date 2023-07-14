@@ -1,9 +1,14 @@
 <template>
-  <div class="w-100 inset-x-0 mx-auto p-2 text-center fixed bottom-10">
-    <p class="text-gray-400 text-sm">
-      Current IP: {{ data?.ip }} ({{ data?.province }} {{ data?.city }} {{ data?.distinct }} {{ data?.isp }})
-    </p>
-  </div>
+  <ClientOnly>
+    <div class="fixed inset-x-0 bottom-10 mx-auto w-100 p-2 text-center">
+      <p class="text-gray-400 text-sm">
+        Current IP: {{ data?.ip }} ({{ data?.province }} {{ data?.city }} {{ data?.distinct }} {{ data?.isp }})
+      </p>
+    </div>
+    <template #fallback>
+      <USkeleton class="fixed inset-x-0 bottom-10 w-1/4 mx-auto h-6 rounded-full" />
+    </template>
+  </ClientOnly>
 </template>
 
 <script setup lang="ts">
