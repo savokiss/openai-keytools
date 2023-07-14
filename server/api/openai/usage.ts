@@ -33,7 +33,7 @@ export default eventHandler(async (event) => {
   const totalUsage = usage.total_usage / 100
 
   return {
-    key,
+    key: key as string,
     totalLimit,
     totalUsage,
     remaining: totalLimit - totalUsage,

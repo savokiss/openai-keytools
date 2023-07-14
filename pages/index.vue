@@ -5,6 +5,7 @@ import { useStorage } from '@vueuse/core'
 const toast = useToast()
 const key = ref('')
 const columns = [
+  { key: 'name', label: 'Name' },
   { key: 'key', label: 'Key' },
   { key: 'totalLimit', label: 'Limit' },
   { key: 'totalUsage', label: 'Usage' },
@@ -25,13 +26,12 @@ function showToast(msg: string, { color = 'primary' } = {}) {
 }
 
 function checkKeyAdded (key: string) {
-  const index = keyStore.value.findIndex(item => item.key === key.trim())
-  return index > -1
+  return checkRow(keyStore, key)
 }
 
 async function getUsages (key: string) {
   loading.value = true
-  const { data, pending } = await useFetch<KeyData>('/api/openai/usage', { 
+  const { data, pending } = await useFetch('/api/openai/usage', { 
     query: {
       key
     },
@@ -54,24 +54,31 @@ async function doQuery () {
   }
   const res = await getUsages(validatedKey)
   res && keyStore.value.push({
+    name: `Key${keyStore.value.length + 1}`,
     ...res
+  })
+  // cleanup input
+  key.value = ''
+}
+
+function onEditName (row: KeyData) {
+  const name = prompt('Enter your Name', row.name || 'Key')
+  name && updateRow(keyStore, row.key, {
+    name,
   })
 }
 
 async function onRefetchKey(row: KeyData) {
   const res = await getUsages(row.key)
-  const index = keyStore.value.findIndex(item => item.key === row.key.trim())
-  if (index > -1) {
-    res && keyStore.value.splice(index, 1, res)
-  }
+  updateRow(keyStore, row.key, {
+    name: row.name,
+    ...res
+  })
 }
 
 function onDeleteKey(row: KeyData) {
-  const index = keyStore.value.findIndex(item => item.key === row.key.trim())
-  if (index > -1) {
-    keyStore.value.splice(index, 1)
-    showToast('Key has deleted')
-  }
+  const deleted = deleteRow(keyStore, row.key)
+  deleted && showToast('Key has deleted')
 }
 </script>
 
@@ -100,8 +107,16 @@ function onDeleteKey(row: KeyData) {
           :columns="columns" 
           :rows="keyStore" 
         >
+          <template #name-data="{ row }">
+            <div class="flex items-center justify-center">
+              <span>{{ row.name }}</span>
+              <UButton class="ml-1" size="2xs" color="blue" variant="ghost" icon="i-heroicons-pencil-square" @click="onEditName(row)" />
+            </div>
+          </template>
           <template #key-data="{ row }">
-            <span>{{ hideApiKey(row.key) }}</span>
+            <span>
+              {{ hideApiKey(row.key) }} 
+            </span>
           </template>
           <template #totalLimit-data="{ row }">
             <span class="font-bold">${{ row.totalLimit }}</span>

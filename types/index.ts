@@ -1,4 +1,5 @@
 export type KeyData = {
+  name?: string
   key: string
   totalLimit: number
   totalUsage: number
