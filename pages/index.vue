@@ -125,7 +125,12 @@ function onDeleteKey(row: KeyData) {
             </div>
           </template>
         </UTable>
-      </ClientOnly>  
+        <template #fallback>
+          <div class="flex flex-col space-y-4">
+            <USkeleton v-for="n in 5" :key="n" class="h-12 rounded-full" />
+          </div>
+        </template>
+      </ClientOnly>
     </section>
   </div>
 </template>
