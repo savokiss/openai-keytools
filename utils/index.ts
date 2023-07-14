@@ -9,3 +9,4 @@ export function validateKey (key: string) {
   }
   return trimed
 }
+

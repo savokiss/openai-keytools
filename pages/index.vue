@@ -12,6 +12,7 @@ const columns = [
   { key: 'expiryDate', label: 'Expire At' },
   { key: 'hasGPT4', label: 'GPT-4' },
   { key: 'hasPayment', label: 'Payment' },
+  { key: 'actions', label: 'Actions', class: 'px-0' }
 ]
 const keyStore = useStorage('key-store', [] as KeyData[])
 const loading = ref(false)
@@ -21,6 +22,11 @@ function showToast(msg: string, { color = 'primary' } = {}) {
     title: msg,
     color: color
   })
+}
+
+function checkKeyAdded (key: string) {
+  const index = keyStore.value.findIndex(item => item.key === key.trim())
+  return index > -1
 }
 
 async function getUsages (key: string) {
@@ -42,10 +48,30 @@ async function doQuery () {
   if (!validatedKey) {
     return showToast('Please check the key format.', { color: 'red' })
   }
+  const isKeyAdded = checkKeyAdded(key.value)
+  if (isKeyAdded) {
+    return showToast('This key has added', { color: 'red' })
+  }
   const res = await getUsages(validatedKey)
   res && keyStore.value.push({
     ...res
   })
+}
+
+async function onRefetchKey(row: KeyData) {
+  const res = await getUsages(row.key)
+  const index = keyStore.value.findIndex(item => item.key === row.key.trim())
+  if (index > -1) {
+    res && keyStore.value.splice(index, 1, res)
+  }
+}
+
+function onDeleteKey(row: KeyData) {
+  const index = keyStore.value.findIndex(item => item.key === row.key.trim())
+  if (index > -1) {
+    keyStore.value.splice(index, 1)
+    showToast('Key has deleted')
+  }
 }
 </script>
 
@@ -91,6 +117,12 @@ async function doQuery () {
           </template>
           <template #hasPayment-data="{ row }">
             <span>{{ row.hasPayment ? '🟢' : '❌' }}</span>
+          </template>
+          <template #actions-data="{ row }">
+            <div class="text-center">
+              <UButton class="mr-2" size="xs" icon="i-heroicons-arrow-path-20-solid" :loading="loading" @click="onRefetchKey(row)" />
+              <UButton size="xs" color="red" icon="i-heroicons-trash" @click="onDeleteKey(row)" />
+            </div>
           </template>
         </UTable>
       </ClientOnly>  
