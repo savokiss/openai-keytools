@@ -24,13 +24,14 @@ export default defineAppConfig({
     table: {
       th: {
         base: 'text-center rtl:text-right bg-indigo-500',
-        padding: 'px-3 py-3.5',
+        padding: 'px-1 py-2',
         color: 'text-white',
         font: 'font-semibold',
         size: 'text-sm'
       },
       td: {
         base: 'whitespace-nowrap text-center',
+        padding: 'px-1 py-2'
       },
     }
   }

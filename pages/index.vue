@@ -11,7 +11,7 @@ const columns = [
   { key: 'totalUsage', label: 'Usage' },
   { key: 'remaining', label: 'Remaining' },
   { key: 'expiryDate', label: 'Expire At' },
-  { key: 'hasGPT4', label: 'GPT-4' },
+  { key: 'hasGPT4', label: 'GPT4' },
   { key: 'hasPayment', label: 'Payment' },
   { key: 'actions', label: 'Actions', class: 'px-0' }
 ]
@@ -83,7 +83,7 @@ function onDeleteKey(row: KeyData) {
 </script>
 
 <template>
-  <div class="container mx-auto pt-10">
+  <div class="container mx-auto p-2 pt-10">
     <GithubCorner />  
     <section class="min-w-min mx-auto">
       <h1 class="text-center text-3xl font-bold font-sans">
@@ -94,14 +94,14 @@ function onDeleteKey(row: KeyData) {
       </p>
     </section>
 
-    <section class="min-w-min mx-auto mt-8">
+    <section class="w-full mx-auto mt-8">
       <UInput v-model="key" size="lg" placeholder="Your key here. Starts with `sk-`" />
       <UButton class="mt-4" block size="lg" color="indigo" :loading="loading" @click="doQuery">
         Query
       </UButton> 
     </section>
 
-    <section class="min-w-min mx-auto mt-8 overflow-auto">
+    <section class="w-full mx-auto mt-8 overflow-auto">
       <ClientOnly>
         <UTable 
           :columns="columns" 
