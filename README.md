@@ -17,6 +17,7 @@
 - Hard Limit
 - History Records (Only stored in your broswer)
 - Custom Remark by `Name`
+- Toggle Sensitive Mode
 
 ## Env Variables
 ### NUXT_PUBLIC_GTAG_ID
@@ -24,3 +25,6 @@
 
 ### NUXT_GITHUB_LINK
 > Repo link for the github corner
+
+### NUXT_OPENAI_BASE
+> Custom openai base url, default is `https://api.openai.com`
