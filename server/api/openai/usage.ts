@@ -1,7 +1,7 @@
 
 import dayjs from 'dayjs'
 
-const OPENAI_BASE = 'https://proxy.detools.dev'
+const OPENAI_BASE = process.env.NUXT_OPENAI_BASE || 'https://api.openai.com'
 
 function getHeaders (key: string) {
   return {
