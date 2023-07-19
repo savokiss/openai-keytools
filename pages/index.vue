@@ -17,6 +17,11 @@ const columns = [
 ]
 const keyStore = useStorage('key-store', [] as KeyData[])
 const loading = ref(false)
+const showKey = ref(false)
+
+function toggleShowKey() {
+  showKey.value = !showKey.value
+}
 
 function showToast(msg: string, { color = 'primary' } = {}) {
   toast.add({
@@ -25,13 +30,13 @@ function showToast(msg: string, { color = 'primary' } = {}) {
   })
 }
 
-function checkKeyAdded (key: string) {
+function checkKeyAdded(key: string) {
   return checkRow(keyStore, key)
 }
 
-async function getUsages (key: string) {
+async function getUsages(key: string) {
   loading.value = true
-  const { data, pending } = await useFetch('/api/openai/usage', { 
+  const { data, pending } = await useFetch('/api/openai/usage', {
     query: {
       key
     },
@@ -40,7 +45,7 @@ async function getUsages (key: string) {
   return data.value
 }
 
-async function doQuery () {
+async function doQuery() {
   if (!key.value) {
     return showToast('Please input the key.', { color: 'red' })
   }
@@ -61,7 +66,7 @@ async function doQuery () {
   key.value = ''
 }
 
-function onEditName (row: KeyData) {
+function onEditName(row: KeyData) {
   const name = prompt('Enter your Name', row.name || 'Key')
   name && updateRow(keyStore, row.key, {
     name,
@@ -84,7 +89,7 @@ function onDeleteKey(row: KeyData) {
 
 <template>
   <div class="container mx-auto p-2 pt-10">
-    <GithubCorner />  
+    <GithubCorner />
     <section class="min-w-min mx-auto">
       <h1 class="text-center text-3xl font-bold font-sans">
         Tools for OpenAI API Keys
@@ -98,24 +103,47 @@ function onDeleteKey(row: KeyData) {
       <UInput v-model="key" size="lg" placeholder="Your key here. Starts with `sk-`" />
       <UButton class="mt-4" block size="lg" color="indigo" :loading="loading" @click="doQuery">
         Query
-      </UButton> 
+      </UButton>
     </section>
 
     <section class="w-full mx-auto mt-8 overflow-auto">
       <ClientOnly>
-        <UTable 
-          :columns="columns" 
-          :rows="keyStore" 
-        >
+        <UTable :columns="columns" :rows="keyStore">
+          <template #key-header>
+            <div class="flex items-center justify-center">
+              <span class="mr-1">Key</span>
+              <UButton
+                v-if="showKey" 
+                square
+                size="2xs" 
+                color="white" 
+                variant="link" 
+                icon="i-heroicons-eye-slash"
+                @click="toggleShowKey"
+              />
+              <UButton 
+                v-else 
+                square
+                size="2xs" 
+                color="white" 
+                variant="link" 
+                icon="i-heroicons-eye" 
+                @click="toggleShowKey" 
+              />
+            </div>
+          </template>
           <template #name-data="{ row }">
             <div class="flex items-center justify-center">
               <span>{{ row.name }}</span>
-              <UButton class="ml-1" size="2xs" color="blue" variant="ghost" icon="i-heroicons-pencil-square" @click="onEditName(row)" />
+              <UButton
+                class="ml-1" size="2xs" color="blue" variant="ghost" icon="i-heroicons-pencil-square"
+                @click="onEditName(row)"
+              />
             </div>
           </template>
           <template #key-data="{ row }">
             <span>
-              {{ hideApiKey(row.key) }} 
+              {{ showKey ? row.key : hideApiKey(row.key) }}
             </span>
           </template>
           <template #totalLimit-data="{ row }">
@@ -135,7 +163,10 @@ function onDeleteKey(row: KeyData) {
           </template>
           <template #actions-data="{ row }">
             <div class="text-center">
-              <UButton class="mr-2" size="xs" icon="i-heroicons-arrow-path-20-solid" :loading="loading" @click="onRefetchKey(row)" />
+              <UButton
+                class="mr-2" size="xs" icon="i-heroicons-arrow-path-20-solid" :loading="loading"
+                @click="onRefetchKey(row)"
+              />
               <UButton size="xs" color="red" icon="i-heroicons-trash" @click="onDeleteKey(row)" />
             </div>
           </template>
