@@ -1,6 +1,11 @@
 # OpenAI KeyTools
 
+Manage your openai api keys with ease.
+
 > see: <https://keys.detools.dev>
+
+## Preview
+![](/public/social-image.png)
 
 ## Stack
 - Nuxt.js

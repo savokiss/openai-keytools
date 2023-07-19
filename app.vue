@@ -14,6 +14,13 @@ useSeoMeta({
   },
   title: appConfig.title,
   description: appConfig.description,
+  ogTitle: appConfig.title,
+  ogDescription: appConfig.description,
+  ogImage: '/social-image.png',
+  twitterTitle: appConfig.title,
+  twitterDescription: appConfig.description,
+  twitterImage: '/social-image.png',
+  twitterCard: 'summary_large_image'
 })
 </script>
 
